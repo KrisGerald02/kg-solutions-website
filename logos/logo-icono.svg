@@ -1,0 +1,22 @@
+<svg viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F5CADD"/>
+      <stop offset="100%" stop-color="#E39BB8"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="130" height="130" fill="#FFFFFF"/>
+
+  <!-- Rounded square mark, pastel pink gradient -->
+  <rect x="12" y="12" width="106" height="106" rx="26" fill="url(#bgGrad3)"/>
+  <rect x="12" y="12" width="106" height="106" rx="26" fill="none" stroke="#C97292" stroke-width="2.5"/>
+
+  <!-- Ascending chart bars, centered, larger since brackets are gone -->
+  <rect x="38" y="72" width="13" height="30" rx="4" fill="#FFFFFF"/>
+  <rect x="58" y="54" width="13" height="48" rx="4" fill="#FFFFFF"/>
+  <rect x="78" y="34" width="13" height="68" rx="4" fill="#FFFFFF"/>
+
+  <!-- small accent dot, like a data point -->
+  <circle cx="84.5" cy="28" r="5.5" fill="#FFFFFF"/>
+</svg>

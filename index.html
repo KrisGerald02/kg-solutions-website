@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KG Solutions — Data Consulting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink-bg: #FFFFFF;
+    --pink-bg-soft: #FFF9FB;
+    --pink-pale: #FDE9F0;
+    --pink-mid: #F5CADD;
+    --pink-accent: #E39BB8;
+    --pink-deep: #C97292;
+    --cream: #FFFFFF;
+    --text-dark: #4A3540;
+    --text-soft: #8C7480;
+    --mint: #E3F4EC;
+    --shadow-pink: rgba(201, 114, 146, 0.14);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body{
+    font-family: 'Quicksand', sans-serif;
+    background: var(--pink-bg);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .display{
+    font-family: 'Baloo 2', cursive;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  a { text-decoration: none; color: inherit; }
+
+  img.placeholder-photo{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ---------- Placeholder image blocks (swap the <img src> for your own photos) ---------- */
+  .img-slot{
+    position: relative;
+    border-radius: 28px;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--pink-pale), var(--mint));
+    border: 3px dashed rgba(201,114,146,0.35);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color: var(--pink-deep);
+    font-family:'Quicksand', sans-serif;
+    font-weight:600;
+    font-size: 0.85rem;
+    text-align:center;
+    padding: 10px;
+  }
+
+  /* ---------- Nav ---------- */
+  header{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--pink-pale);
+  }
+  .nav-wrap{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 16px 32px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-family:'Baloo 2', cursive;
+    font-size: 1.5rem;
+    font-weight:800;
+    color: var(--pink-deep);
+  }
+  .logo .logo-mark{ width: 46px; height: 46px; flex-shrink:0; }
+  nav ul{
+    display:flex;
+    gap: 30px;
+    list-style:none;
+  }
+  nav ul li a{
+    font-weight:600;
+    font-size: 0.98rem;
+    color: var(--text-dark);
+    transition: color .2s;
+  }
+  nav ul li a:hover{ color: var(--pink-deep); }
+
+  .nav-actions{
+    display:flex;
+    align-items:center;
+    gap: 14px;
+  }
+
+  #lang-toggle{
+    font-family:'Baloo 2', cursive;
+    font-weight:700;
+    font-size: 0.95rem;
+    background: var(--cream);
+    color: var(--pink-deep);
+    border: 2px solid var(--pink-accent);
+    padding: 8px 18px;
+    border-radius: 999px;
+    cursor:pointer;
+    box-shadow: 0 4px 0 var(--shadow-pink);
+    transition: transform .15s, box-shadow .15s;
+  }
+  #lang-toggle:hover{ transform: translateY(-2px); box-shadow: 0 6px 0 var(--shadow-pink); }
+  #lang-toggle:active{ transform: translateY(2px); box-shadow: 0 2px 0 var(--shadow-pink); }
+
+  .btn-primary{
+    display:inline-block;
+    font-family:'Baloo 2', cursive;
+    font-weight:700;
+    background: var(--pink-accent);
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    box-shadow: 0 5px 0 var(--pink-deep);
+    transition: transform .15s, box-shadow .15s;
+  }
+  .btn-primary:hover{ transform: translateY(-2px); box-shadow: 0 7px 0 var(--pink-deep); }
+  .btn-primary:active{ transform: translateY(3px); box-shadow: 0 2px 0 var(--pink-deep); }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 70px 32px 40px;
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items:center;
+    gap: 40px;
+    position: relative;
+  }
+  .cloud{
+    position:absolute;
+    border-radius: 50%;
+    background: var(--pink-pale);
+    opacity: 0.7;
+    z-index:0;
+  }
+  .cloud.c1{ width:180px; height:180px; top:-40px; left:-60px; }
+  .cloud.c2{ width:120px; height:120px; bottom:20px; right:10%; background: var(--mint); opacity:0.6;}
+
+  .eyebrow{
+    font-weight:700;
+    color: var(--pink-deep);
+    background: var(--mint);
+    display:inline-block;
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    margin-bottom: 18px;
+  }
+
+  .hero h1{
+    font-size: 3.1rem;
+    line-height: 1.15;
+    color: var(--pink-deep);
+    -webkit-text-stroke: 1px rgba(201,114,146,0.12);
+    margin-bottom: 20px;
+  }
+  .hero h1 span{ color: var(--text-dark); }
+
+  .hero p.lead{
+    font-size: 1.15rem;
+    color: var(--text-soft);
+    max-width: 480px;
+    margin-bottom: 30px;
+    font-weight: 500;
+  }
+
+  .hero-cta-row{ display:flex; gap:16px; align-items:center; }
+  .link-secondary{ font-weight:700; color: var(--pink-deep); border-bottom: 2px solid var(--pink-accent); }
+
+  .hero-visual{
+    position: relative;
+    height: 420px;
+  }
+  .hero-visual .img-slot{
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Bouncing bunny mascot (signature element) */
+  .bunny-mascot{
+    position:absolute;
+    bottom: -30px;
+    left: -30px;
+    width: 130px;
+    animation: bounce 2.6s ease-in-out infinite;
+    filter: drop-shadow(0 10px 12px rgba(224,73,138,0.3));
+  }
+  @keyframes bounce{
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-16px) rotate(3deg); }
+  }
+
+  /* ---------- Section generic ---------- */
+  section{ max-width: 1180px; margin: 0 auto; padding: 90px 32px; position:relative; }
+  .section-heading{ text-align:center; max-width: 640px; margin: 0 auto 60px; }
+  .section-heading .eyebrow{ margin-bottom: 14px; }
+  .section-heading h2{ font-size: 3rem; line-height:1.1; color: var(--pink-deep); font-weight:800; }
+  .section-heading p{ color: var(--text-soft); margin-top: 14px; font-weight:500; }
+
+  /* ---------- About / pillars ---------- */
+  .pillars{
+    display:grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 50px;
+    align-items:center;
+  }
+  .pillars .img-slot{ height: 340px; }
+  .pillar-list{ display:flex; flex-direction:column; gap: 22px; margin-top: 26px; }
+  .pillar-item{ display:flex; gap:16px; align-items:flex-start; }
+  .pillar-bubble{
+    flex-shrink:0;
+    width: 44px; height:44px;
+    border-radius: 50%;
+    background: var(--pink-accent);
+    color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Baloo 2', cursive;
+    font-weight:700;
+  }
+  .pillar-item h3{ font-size: 1.15rem; color: var(--text-dark); margin-bottom:4px; }
+  .pillar-item p{ color: var(--text-soft); font-size:0.95rem; font-weight:500; }
+
+  /* ---------- Stats ---------- */
+  .stats{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    background: var(--pink-bg-soft);
+    border: 2px solid var(--pink-pale);
+    border-radius: 32px;
+    padding: 50px 32px;
+    box-shadow: 0 10px 0 var(--pink-pale);
+  }
+  .stat{ text-align:center; }
+  .stat .num{
+    font-family:'Baloo 2', cursive;
+    font-size: 2.6rem;
+    color: var(--pink-accent);
+    font-weight: 800;
+  }
+  .stat .label{ font-weight:700; color: var(--text-dark); margin-top:6px; }
+  .stat .desc{ font-size:0.88rem; color: var(--text-soft); margin-top:4px; }
+
+  /* ---------- Services ---------- */
+  .services-grid{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 26px;
+  }
+  .service-card{
+    background: var(--cream);
+    border: 2px solid var(--pink-pale);
+    border-radius: 26px;
+    padding: 30px;
+    box-shadow: 0 8px 0 var(--pink-pale);
+    display:flex;
+    flex-direction:column;
+    gap: 14px;
+    transition: transform .2s;
+  }
+  .service-card:hover{ transform: translateY(-6px); }
+  .service-card .icon-slot{
+    width: 60px; height:60px;
+    border-radius: 18px;
+    background: var(--pink-pale);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .service-card h3{ font-size:1.25rem; color: var(--pink-deep); }
+  .service-card p{ color: var(--text-soft); font-weight:500; font-size:0.95rem; }
+  .service-card .tag{ align-self:flex-start; font-size:0.78rem; font-weight:700; color:var(--pink-deep); background: var(--mint); padding:4px 12px; border-radius:999px; }
+
+  /* ---------- Clients / Work portfolio ---------- */
+  .work-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+  }
+  .work-card{
+    background: var(--cream);
+    border: 2px solid var(--pink-pale);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 8px 0 var(--pink-pale);
+    display:flex;
+    flex-direction:column;
+    transition: transform .2s;
+  }
+  .work-card:hover{ transform: translateY(-6px); }
+  .work-card .img-slot{
+    height: 180px;
+    border-radius: 0;
+    border: none;
+    border-bottom: 2px dashed rgba(201,114,146,0.3);
+  }
+  .work-card-body{ padding: 22px; display:flex; flex-direction:column; gap:8px; }
+  .work-card-body .tag{
+    align-self:flex-start;
+    font-size:0.75rem;
+    font-weight:700;
+    color: var(--pink-deep);
+    background: var(--pink-pale);
+    padding: 4px 12px;
+    border-radius: 999px;
+  }
+  .work-card-body h3{ font-size:1.1rem; color: var(--text-dark); }
+  .work-card-body p{ color: var(--text-soft); font-size:0.9rem; font-weight:500; }
+
+  /* ---------- Testimonials (speech-bubble style) ---------- */
+  .testimonial-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+  }
+  .testimonial-card{
+    position:relative;
+    background: var(--cream);
+    border: 2px solid var(--pink-pale);
+    border-radius: 24px 24px 24px 4px;
+    padding: 28px;
+    box-shadow: 0 6px 0 var(--pink-pale);
+  }
+  .testimonial-card::after{
+    content:"";
+    position:absolute;
+    bottom:-14px;
+    left: 24px;
+    width: 0; height:0;
+    border: 14px solid transparent;
+    border-top-color: var(--cream);
+    border-bottom:0;
+  }
+  .stars{ color: var(--pink-accent); font-size:1rem; letter-spacing:2px; margin-bottom:10px; }
+  .testimonial-card p.quote{ color: var(--text-dark); font-weight:500; font-size:0.95rem; margin-bottom:16px; }
+  .testimonial-author{ display:flex; align-items:center; gap:12px; }
+  .testimonial-author .avatar-slot{ width:44px; height:44px; border-radius:50%; font-size:0.6rem; }
+  .testimonial-author .name{ font-weight:700; font-size:0.9rem; }
+  .testimonial-author .role{ font-size:0.8rem; color: var(--text-soft); }
+
+  /* ---------- Contact ---------- */
+  .contact-box{
+    background: var(--pink-deep);
+    border-radius: 32px;
+    padding: 60px;
+    color: #fff;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items:center;
+  }
+  .contact-box h2{ color:#fff; font-size:2rem; margin-bottom:14px; }
+  .contact-box p{ font-weight:500; opacity:0.9; margin-bottom: 24px;}
+  form{ display:flex; flex-direction:column; gap:14px; }
+  form input, form textarea{
+    padding: 14px 18px;
+    border-radius: 16px;
+    border: none;
+    font-family:'Quicksand', sans-serif;
+    font-weight:600;
+    font-size:0.95rem;
+    background: #fff;
+    color: var(--text-dark);
+  }
+  form textarea{ resize:none; height:100px; }
+  form button{
+    font-family:'Baloo 2', cursive;
+    background: var(--mint);
+    color: var(--text-dark);
+    border:none;
+    padding: 14px;
+    border-radius: 16px;
+    font-weight:700;
+    cursor:pointer;
+    font-size:1rem;
+    box-shadow: 0 5px 0 rgba(0,0,0,0.15);
+    transition: transform .15s;
+  }
+  form button:hover{ transform: translateY(-2px); }
+
+  /* ---------- Footer ---------- */
+  footer{
+    text-align:center;
+    padding: 34px 32px 50px;
+    color: var(--text-soft);
+    font-weight:600;
+    font-size:0.9rem;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px){
+    .hero, .pillars, .contact-box{ grid-template-columns: 1fr; }
+    .stats{ grid-template-columns: 1fr; }
+    .services-grid, .testimonial-grid, .work-grid{ grid-template-columns: 1fr; }
+    nav ul{ display:none; }
+    .hero h1{ font-size: 2.2rem; }
+  }
+
+  /* Accessibility: visible focus */
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
+    outline: 3px solid var(--pink-deep);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .bunny-mascot{ animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-wrap">
+    <div class="logo">
+      <!-- KG Solutions logo: ascending chart bars -->
+      <svg class="logo-mark" viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="navBgGrad6" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#F5CADD"/>
+            <stop offset="100%" stop-color="#E39BB8"/>
+          </linearGradient>
+        </defs>
+        <rect x="12" y="12" width="106" height="106" rx="26" fill="url(#navBgGrad6)"/>
+        <rect x="12" y="12" width="106" height="106" rx="26" fill="none" stroke="#C97292" stroke-width="2.5"/>
+        <rect x="38" y="72" width="13" height="30" rx="4" fill="#FFFFFF"/>
+        <rect x="58" y="54" width="13" height="48" rx="4" fill="#FFFFFF"/>
+        <rect x="78" y="34" width="13" height="68" rx="4" fill="#FFFFFF"/>
+        <circle cx="84.5" cy="28" r="5.5" fill="#FFFFFF"/>
+      </svg>
+      <span data-en="KG Solutions" data-es="KG Solutions">KG Solutions</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#about" data-en="About" data-es="Nosotros">About</a></li>
+        <li><a href="#services" data-en="Services" data-es="Servicios">Services</a></li>
+        <li><a href="#clients" data-en="Clients" data-es="Clientes">Clients</a></li>
+        <li><a href="#testimonials" data-en="Testimonials" data-es="Testimonios">Testimonials</a></li>
+        <li><a href="#contact" data-en="Contact" data-es="Contacto">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-actions">
+      <button id="lang-toggle" aria-label="Switch language">ES</button>
+      <a href="#contact" class="btn-primary" data-en="Let's talk" data-es="Hablemos" style="padding:10px 22px; font-size:0.9rem;">Let's talk</a>
+    </div>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="cloud c1"></div>
+  <div class="cloud c2"></div>
+  <div class="hero-copy" style="z-index:1;">
+    <span class="eyebrow" data-en="Data Consulting Studio" data-es="Consultora de Datos">Data Consulting Studio</span>
+    <h1 data-en="Turn your data into your business's <span>best friend</span>" data-es="Convierte tus datos en el <span>mejor amigo</span> de tu negocio">
+      Turn your data into your business's <span>best friend</span>
+    </h1>
+    <p class="lead" data-en="KG Solutions helps you digitize and optimize your processes with strategic, data-driven solutions and a friendly team that actually gets your business."
+       data-es="En KG Solutions te ayudamos a digitalizar y optimizar tus procesos con soluciones estratégicas basadas en datos y un equipo cercano que entiende tu negocio.">
+      KG Solutions helps you digitize and optimize your processes with strategic, data-driven solutions and a friendly team that actually gets your business.
+    </p>
+    <div class="hero-cta-row">
+      <a href="#contact" class="btn-primary" data-en="Get started" data-es="Comenzar">Get started</a>
+      <a href="#services" class="link-secondary" data-en="See our services →" data-es="Ver servicios →">See our services →</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="img-slot">
+      <!-- REPLACE: swap this div for <img src="your-hero-photo.jpg" class="placeholder-photo"> -->
+      [ REPLACE WITH HERO IMAGE<br>e.g. team, dashboard or workspace photo ]
+    </div>
+    <!-- Bunny mascot signature illustration (redesigned) -->
+    <svg class="bunny-mascot" viewBox="0 0 160 170" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- upright ear -->
+      <path d="M62 8 C50 8 46 40 54 62 C58 70 68 70 70 60 C74 40 74 8 62 8Z" fill="#FDE9F0" stroke="#C97292" stroke-width="3"/>
+      <path d="M62 18 C56 20 54 40 58 54" stroke="#E39BB8" stroke-width="4" stroke-linecap="round" fill="none"/>
+      <!-- folded ear -->
+      <path d="M100 12 C118 18 122 46 106 64 C98 72 88 66 92 54 C98 36 90 16 100 12Z" fill="#FDE9F0" stroke="#C97292" stroke-width="3"/>
+      <path d="M100 22 C110 30 110 46 100 56" stroke="#E39BB8" stroke-width="4" stroke-linecap="round" fill="none"/>
+      <!-- head -->
+      <ellipse cx="80" cy="98" rx="52" ry="46" fill="#FFFFFF" stroke="#C97292" stroke-width="3.5"/>
+      <!-- blush -->
+      <ellipse cx="54" cy="106" rx="9" ry="6" fill="#FBD0DE" opacity="0.9"/>
+      <ellipse cx="106" cy="106" rx="9" ry="6" fill="#FBD0DE" opacity="0.9"/>
+      <!-- eyes (one closed/happy) -->
+      <path d="M56 92 Q62 86 68 92" stroke="#4A3540" stroke-width="3.4" stroke-linecap="round" fill="none"/>
+      <circle cx="102" cy="93" r="4.5" fill="#4A3540"/>
+      <!-- nose + mouth -->
+      <ellipse cx="80" cy="112" rx="6" ry="4.5" fill="#E39BB8"/>
+      <path d="M68 122 Q80 132 92 122" stroke="#4A3540" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <!-- little paw holding a mini chart card -->
+      <rect x="106" y="118" width="34" height="26" rx="7" fill="#FFFFFF" stroke="#C97292" stroke-width="2.5"/>
+      <path d="M112 138 L112 128 M120 138 L120 124 M128 138 L128 131" stroke="#E39BB8" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="112" cy="140" r="10" fill="#FDE9F0" stroke="#C97292" stroke-width="2.5"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ================= ABOUT / PILLARS ================= -->
+<section id="about" class="pillars">
+  <div class="img-slot">
+    <!-- REPLACE: team photo or office photo -->
+    [ REPLACE WITH TEAM / OFFICE IMAGE ]
+  </div>
+  <div>
+    <span class="eyebrow" data-en="How we work" data-es="Cómo trabajamos">How we work</span>
+    <h2 style="font-size:2rem; color:var(--pink-deep); margin-top:14px;" data-en="People, technology and data are the pillars of every win" data-es="Personas, tecnología y datos son los pilares de cada logro">
+      People, technology and data are the pillars of every win
+    </h2>
+    <p style="color:var(--text-soft); margin-top:12px; font-weight:500;" data-en="All of our solutions are people-and-data-driven: we combine software, process analysis and your team's real-world knowledge to understand how your operation truly works." data-es="Todas nuestras soluciones son people y data-driven: combinamos software, análisis de procesos y el conocimiento real de tu equipo para entender cómo funciona tu operación.">
+      All of our solutions are people-and-data-driven: we combine software, process analysis and your team's real-world knowledge to understand how your operation truly works.
+    </p>
+    <div class="pillar-list">
+      <div class="pillar-item">
+        <div class="pillar-bubble">1</div>
+        <div>
+          <h3 data-en="Work together, side by side" data-es="Colaboración en conjunto">Work together, side by side</h3>
+          <p data-en="We embed with your team instead of working from a distance." data-es="Nos integramos con tu equipo en lugar de trabajar a la distancia.">We embed with your team instead of working from a distance.</p>
+        </div>
+      </div>
+      <div class="pillar-item">
+        <div class="pillar-bubble">2</div>
+        <div>
+          <h3 data-en="Tailor-made projects" data-es="Proyectos a medida">Tailor-made projects</h3>
+          <p data-en="No templates: every roadmap is built around your goals." data-es="Nada de plantillas: cada plan se construye alrededor de tus metas.">No templates: every roadmap is built around your goals.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STATS ================= -->
+<section>
+  <div class="stats">
+    <div class="stat">
+      <div class="num">5+</div>
+      <div class="label" data-en="Years of experience" data-es="Años de experiencia">Years of experience</div>
+      <div class="desc" data-en="Working hands-on with data analytics" data-es="Trabajando de la mano con analítica de datos">Working hands-on with data analytics</div>
+    </div>
+    <div class="stat">
+      <div class="num">95%</div>
+      <div class="label" data-en="Client satisfaction" data-es="Satisfacción de clientes">Client satisfaction</div>
+      <div class="desc" data-en="Solutions tailored to your needs" data-es="Soluciones ajustadas a tu necesidad">Solutions tailored to your needs</div>
+    </div>
+    <div class="stat">
+      <div class="num">100+</div>
+      <div class="label" data-en="Clients" data-es="Clientes">Clients</div>
+      <div class="desc" data-en="Training, consulting and personalized advice" data-es="Training, consultoría y asesorías personalizadas">Training, consulting and personalized advice</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SERVICES ================= -->
+<section id="services">
+  <div class="section-heading">
+    <span class="eyebrow" data-en="Our services" data-es="Nuestros servicios">Our services</span>
+    <h2 data-en="Your guide to becoming data-driven" data-es="Tu guía para ser data-driven">Your guide to becoming data-driven</h2>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="icon-slot">
+        <!-- REPLACE with a small icon/illustration if you like -->
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M4 19V9M12 19V5M20 19v-7" stroke="#C97292" stroke-width="2.5" stroke-linecap="round"/></svg>
+      </div>
+      <span class="tag">01</span>
+      <h3 data-en="Business data analytics" data-es="Analítica de datos para negocios">Business data analytics</h3>
+      <p data-en="Roll out a data-driven strategy step by step, together with our team." data-es="Implementa una estrategia data-driven paso a paso junto a nuestro equipo.">Roll out a data-driven strategy step by step, together with our team.</p>
+    </div>
+    <div class="service-card">
+      <div class="icon-slot">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="4" stroke="#C97292" stroke-width="2.5"/><path d="M9 9h6v6H9z" fill="#C97292"/></svg>
+      </div>
+      <span class="tag">02</span>
+      <h3 data-en="Software implementation" data-es="Implementación de softwares">Software implementation</h3>
+      <p data-en="From CRMs to ERPs, we help transform your processes with the right technology." data-es="Desde CRMs hasta ERPs, te ayudamos a transformar tus procesos con tecnología.">From CRMs to ERPs, we help transform your processes with the right technology.</p>
+    </div>
+    <div class="service-card">
+      <div class="icon-slot">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#C97292" stroke-width="2.5"/><path d="M12 8v4l3 2" stroke="#C97292" stroke-width="2.5" stroke-linecap="round"/></svg>
+      </div>
+      <span class="tag">03</span>
+      <h3 data-en="Business planning & management" data-es="Planificación y gestión empresarial">Business planning &amp; management</h3>
+      <p data-en="We help you plan, manage and evaluate your goals and projects." data-es="Te ayudamos a planificar, gestionar y evaluar tus objetivos y proyectos.">We help you plan, manage and evaluate your goals and projects.</p>
+    </div>
+    <div class="service-card">
+      <div class="icon-slot">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M4 19l6-6 4 4 6-8" stroke="#C97292" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span class="tag">04</span>
+      <h3 data-en="Training & coaching" data-es="Training y capacitación">Training &amp; coaching</h3>
+      <p data-en="Learn data analytics and business skills through our workshops and masterclasses." data-es="Aprende data analytics y de negocios con nuestras capacitaciones y masterclass.">Learn data analytics and business skills through our workshops and masterclasses.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CLIENTS / WORK ================= -->
+<section id="clients">
+  <div class="section-heading">
+    <span class="eyebrow" data-en="Our clients" data-es="Nuestros clientes">Our clients</span>
+    <h2 data-en="Real work, real results" data-es="Trabajo real, resultados reales">Real work, real results</h2>
+    <p data-en="A few of the dashboards, projects and companies we've worked with. Swap in your own screenshots below." data-es="Algunos de los dashboards, proyectos y empresas con las que hemos trabajado. Reemplaza estas capturas por las tuyas.">A few of the dashboards, projects and companies we've worked with. Swap in your own screenshots below.</p>
+  </div>
+  <div class="work-grid">
+    <div class="work-card">
+      <div class="img-slot">
+        <!-- REPLACE: screenshot of a dashboard, report or project delivered to this client -->
+        [ REPLACE WITH SCREENSHOT<br>e.g. dashboard or report ]
+      </div>
+      <div class="work-card-body">
+        <span class="tag" data-en="Retail" data-es="Retail">Retail</span>
+        <h3 data-en="Client Name — Project title" data-es="Nombre del cliente — Título del proyecto">Client Name — Project title</h3>
+        <p data-en="Short description of the problem you solved and the result you delivered." data-es="Descripción corta del problema que resolviste y el resultado que entregaste.">Short description of the problem you solved and the result you delivered.</p>
+      </div>
+    </div>
+    <div class="work-card">
+      <div class="img-slot">
+        [ REPLACE WITH SCREENSHOT<br>e.g. dashboard or report ]
+      </div>
+      <div class="work-card-body">
+        <span class="tag" data-en="Logistics" data-es="Logística">Logistics</span>
+        <h3 data-en="Client Name — Project title" data-es="Nombre del cliente — Título del proyecto">Client Name — Project title</h3>
+        <p data-en="Short description of the problem you solved and the result you delivered." data-es="Descripción corta del problema que resolviste y el resultado que entregaste.">Short description of the problem you solved and the result you delivered.</p>
+      </div>
+    </div>
+    <div class="work-card">
+      <div class="img-slot">
+        [ REPLACE WITH SCREENSHOT<br>e.g. dashboard or report ]
+      </div>
+      <div class="work-card-body">
+        <span class="tag" data-en="Finance" data-es="Finanzas">Finance</span>
+        <h3 data-en="Client Name — Project title" data-es="Nombre del cliente — Título del proyecto">Client Name — Project title</h3>
+        <p data-en="Short description of the problem you solved and the result you delivered." data-es="Descripción corta del problema que resolviste y el resultado que entregaste.">Short description of the problem you solved and the result you delivered.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TESTIMONIALS ================= -->
+<section id="testimonials">
+  <div class="section-heading">
+    <span class="eyebrow" data-en="Testimonials" data-es="Testimonios">Testimonials</span>
+    <h2 data-en="What our clients say" data-es="Lo que dicen nuestros clientes">What our clients say</h2>
+  </div>
+  <div class="testimonial-grid">
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="quote" data-en="Working with KG Solutions gave my team the confidence to actually use our own data every day." data-es="Trabajar con KG Solutions le dio a mi equipo la confianza para usar nuestros datos todos los días.">Working with KG Solutions gave my team the confidence to actually use our own data every day.</p>
+      <div class="testimonial-author">
+        <div class="img-slot avatar-slot">img</div>
+        <div>
+          <div class="name">Carla M.</div>
+          <div class="role" data-en="Operations Lead" data-es="Líder de Operaciones">Operations Lead</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="quote" data-en="Personalized attention from day one — every question was answered, in and out of sessions." data-es="Atención personalizada desde el día uno, todas las dudas fueron resueltas dentro y fuera de las sesiones.">Personalized attention from day one — every question was answered, in and out of sessions.</p>
+      <div class="testimonial-author">
+        <div class="img-slot avatar-slot">img</div>
+        <div>
+          <div class="name">Ginelle S.</div>
+          <div class="role" data-en="Analytics Trainee" data-es="Trainee de Analítica">Analytics Trainee</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="quote" data-en="Clear, professional communication and real examples we could apply the same week." data-es="Comunicación clara y profesional, con ejemplos reales que pudimos aplicar la misma semana.">Clear, professional communication and real examples we could apply the same week.</p>
+      <div class="testimonial-author">
+        <div class="img-slot avatar-slot">img</div>
+        <div>
+          <div class="name">Priscila R.</div>
+          <div class="role" data-en="Founder" data-es="Fundadora">Founder</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact">
+  <div class="contact-box">
+    <div>
+      <h2 data-en="Let's make your data friendly" data-es="Hagamos que tus datos sean amigables">Let's make your data friendly</h2>
+      <p data-en="Tell us a bit about your business and we'll get back to you within 1 business day." data-es="Cuéntanos un poco sobre tu negocio y te responderemos en 1 día hábil.">Tell us a bit about your business and we'll get back to you within 1 business day.</p>
+    </div>
+    <form onsubmit="return false;">
+      <input type="text" data-en-placeholder="Full name" data-es-placeholder="Nombre y apellido" placeholder="Full name">
+      <input type="email" data-en-placeholder="Email" data-es-placeholder="Email" placeholder="Email">
+      <input type="text" data-en-placeholder="WhatsApp" data-es-placeholder="Whatsapp" placeholder="WhatsApp">
+      <textarea data-en-placeholder="Tell us about your project" data-es-placeholder="Cuéntanos sobre tu proyecto" placeholder="Tell us about your project"></textarea>
+      <button type="submit" data-en="Send message" data-es="Enviar mensaje">Send message</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <p data-en="KG Solutions © 2026. All rights reserved." data-es="KG Solutions © 2026. Todos los derechos reservados.">KG Solutions © 2026. All rights reserved.</p>
+</footer>
+
+<script>
+  // ---------- Simple EN/ES translation toggle ----------
+  // Default language is English. Clicking the button swaps every
+  // element that has both data-en and data-es attributes.
+  let currentLang = 'en';
+  const toggleBtn = document.getElementById('lang-toggle');
+
+  function applyLang(lang){
+    document.documentElement.lang = lang;
+
+    document.querySelectorAll('[data-en]').forEach(el => {
+      const value = lang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-es');
+      if (value !== null) el.innerHTML = value;
+    });
+
+    document.querySelectorAll('[data-en-placeholder]').forEach(el => {
+      const value = lang === 'en' ? el.getAttribute('data-en-placeholder') : el.getAttribute('data-es-placeholder');
+      if (value !== null) el.setAttribute('placeholder', value);
+    });
+
+    toggleBtn.textContent = lang === 'en' ? 'ES' : 'EN';
+  }
+
+  toggleBtn.addEventListener('click', () => {
+    currentLang = currentLang === 'en' ? 'es' : 'en';
+    applyLang(currentLang);
+  });
+
+  // Ensure English on load
+  applyLang('en');
+</script>
+
+</body>
+</html>
