@@ -66,3 +66,12 @@ dialog::backdrop{background:#4a354090;backdrop-filter:blur(3px)}.dialog-close{po
 @media(max-width:1000px){.nav-wrap{gap:12px;flex-wrap:wrap}.logo{margin-right:auto}.menu-toggle{display:block;order:2}#lang-toggle{order:3}#main-nav{display:none;order:4;width:100%}#main-nav.is-open{display:block}nav ul{flex-direction:column;gap:2px}nav a{padding:10px 12px}nav a[aria-current=page]{box-shadow:none;background:var(--pale);border-radius:12px}.proj-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.service-row{gap:22px;grid-template-columns:58px 1fr 1.2fr}.service-icon{width:58px;height:58px}}
 @media(max-width:760px){.service-row{grid-template-columns:58px 1fr;gap:16px;padding:28px 0}.service-row-content{grid-column:1/-1}.service-row h2{font-size:1.65rem}.service-row .service-list{padding-left:18px}.proj-grid{grid-template-columns:1fr}.project-modal{padding:25px 18px;width:calc(100% - 24px)}#carousel-image{height:240px}.project-modal h2{font-size:1.35rem}.image-lightbox{padding:50px 45px}.logo-copy small{font-size:.61rem;max-width:185px}#back-to-top{right:16px;bottom:16px;padding:10px 12px;font-size:.76rem}.nav-wrap{padding:10px 16px}.logo{font-size:1.1rem}.legal-footer{padding-bottom:30px}}
 #carousel-zoom{position:relative}#carousel-zoom-label{position:absolute;right:10px;bottom:10px;background:#4a3540cc;color:#fff;border-radius:20px;padding:6px 12px;font-size:.78rem;font-weight:700}
+/* Websites and tools from the updated portfolio */
+.website-project .client-icon{height:155px;min-height:155px;padding:12px}
+.website-client-logo{width:100%;max-width:300px;height:auto;max-height:115px;object-fit:contain}
+.tools-section{scroll-margin-top:125px}.tools-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.tool-group{padding:24px;border:1px solid var(--line);border-radius:20px;background:var(--soft)}.tool-group h3{font-size:1.2rem;color:var(--deep);margin-bottom:18px}
+.tool-chips{list-style:none;display:flex;flex-wrap:wrap;gap:9px}.tool-chips li{border:1px solid var(--line);border-radius:20px;background:#fff;padding:6px 12px;color:var(--muted);font-size:.83rem;font-weight:600}
+.tools-callout{padding-top:20px;text-align:center}.tools-callout h2{font-size:1.7rem}.tools-callout p{max-width:650px;margin:14px auto 18px}
+@media(max-width:1000px){.tools-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.tools-grid{grid-template-columns:1fr}.tools-section{scroll-margin-top:155px}}
