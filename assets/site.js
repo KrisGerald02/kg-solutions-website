@@ -61,7 +61,7 @@
     const body = lang === 'es'
       ? 'Hola KG Tech, quisiera consultar sobre un proyecto.\n\nNombre: ' + name + '\nServicio: ' + service + '\n\n' + message
       : 'Hello KG Tech, I would like to ask about a project.\n\nName: ' + name + '\nService: ' + service + '\n\n' + message;
-    const url = 'https://wa.me/50575151790?text=' + encodeURIComponent(body);
+    const url = 'https://wa.me/50576935552?text=' + encodeURIComponent(body);
     window.open(url, '_blank', 'noopener,noreferrer');
     document.getElementById('form-status').textContent = lang === 'es'
       ? 'Tu mensaje está preparado. Confirma el envío en la aplicación que se abre.'
