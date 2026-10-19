@@ -39,7 +39,7 @@
       launcher.addEventListener('animationend', event => {
         if (event.target === launcher && event.animationName === 'launcher-dismiss') dismissLauncher();
       });
-      setTimeout(dismissLauncher, 1500);
+      setTimeout(dismissLauncher, 1600);
     }
   }
   const ticker = document.querySelector('.services-ticker');
