@@ -31,6 +31,30 @@
   toggle.addEventListener('click', () => applyLanguage(lang === 'es' ? 'en' : 'es'));
   const menu = document.querySelector('.menu-toggle');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const launcher = document.querySelector('.site-launcher');
+  if (launcher) {
+    const dismissLauncher = () => launcher.remove();
+    if (reducedMotion.matches) dismissLauncher();
+    else setTimeout(dismissLauncher, 900);
+  }
+  const ticker = document.querySelector('.services-ticker');
+  if (ticker) {
+    const pauseButton = ticker.querySelector('.ticker-toggle');
+    function updateTickerButton() {
+      const paused = ticker.classList.contains('is-paused');
+      pauseButton.setAttribute('aria-pressed', String(paused));
+      pauseButton.setAttribute('aria-label', lang === 'es' ? (paused ? 'Reanudar carrusel' : 'Pausar carrusel') : (paused ? 'Resume carousel' : 'Pause carousel'));
+      pauseButton.textContent = paused ? '▶' : 'Ⅱ';
+    }
+    pauseButton.addEventListener('click', () => { ticker.classList.toggle('is-paused'); updateTickerButton(); });
+    window.addEventListener('kg-language-change', updateTickerButton);
+    updateTickerButton();
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(entries => {
+        ticker.classList.toggle('is-offscreen', !entries[0].isIntersecting);
+      }).observe(ticker);
+    }
+  }
   const mobileViewport = window.matchMedia('(max-width: 1000px)');
   menu.setAttribute('aria-controls', mobilePanel.id);
   let closeTimer;

@@ -77,7 +77,7 @@ dialog::backdrop{background:#4a354090;backdrop-filter:blur(3px)}.dialog-close{po
 @media(max-width:600px){.tools-grid{grid-template-columns:1fr}.tools-section{scroll-margin-top:155px}}
 /* Full-screen mobile navigation, using the existing KG Tech palette. */
 body.mobile-menu-open{position:fixed;width:100%;overflow:hidden}
-.mobile-menu{position:fixed;inset:0;width:100%;max-width:none;height:100dvh;max-height:none;margin:0;border:0;padding:0;background:var(--soft);color:var(--text);overflow:auto;overscroll-behavior:contain;z-index:300;clip-path:inset(0 0 100% 0);transition:clip-path 480ms cubic-bezier(.16,1,.3,1)}
+.mobile-menu{position:fixed;inset:0;width:100%;max-width:none;height:100dvh;max-height:none;margin:0;border:0;padding:0;background:var(--soft);color:var(--text);overflow:auto;overscroll-behavior:contain;z-index:300;clip-path:inset(0 0 100% 0);transition:clip-path 320ms cubic-bezier(.16,1,.3,1)}
 .mobile-menu::backdrop{background:transparent;backdrop-filter:none}
 .mobile-menu.is-visible{clip-path:inset(0)}
 .mobile-menu.is-closing{clip-path:inset(0 0 100% 0);transition-duration:230ms}
@@ -101,9 +101,9 @@ body.mobile-menu-open{position:fixed;width:100%;overflow:hidden}
 /* Motion shared by existing content and controls. */
 @keyframes kg-enter{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:no-preference){
-main{animation:kg-enter 650ms cubic-bezier(.16,1,.3,1) both}
-.hero h1,.page-intro h1{animation:kg-enter 950ms cubic-bezier(.16,1,.3,1) both}
-.scroll-reveal{opacity:0;translate:0 28px;transition:opacity 800ms cubic-bezier(.16,1,.3,1),translate 800ms cubic-bezier(.16,1,.3,1)}
+main{animation:none}
+.hero h1,.page-intro h1{animation:kg-enter 400ms cubic-bezier(.16,1,.3,1) both}
+.scroll-reveal{opacity:0;translate:0 12px;transition:opacity 350ms cubic-bezier(.16,1,.3,1),translate 350ms cubic-bezier(.16,1,.3,1)}
 .scroll-reveal.is-revealed{opacity:1;translate:0 0}
 .hero-visual img,.brand-panel img{transition:transform 650ms cubic-bezier(.16,1,.3,1),filter 650ms}
 .hero-visual:hover img{transform:scale(1.04)}
@@ -119,16 +119,32 @@ main{animation:kg-enter 650ms cubic-bezier(.16,1,.3,1) both}
 }
 @media(prefers-reduced-motion:reduce){.mobile-menu,.mobile-menu *{animation:none!important;transition:none!important}.scroll-reveal{opacity:1;translate:none}html{scroll-behavior:auto}}
 /* Replay the same entrance for every project whenever its dialog opens. */
+.site-launcher{position:fixed;inset:0;z-index:500;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;background:var(--soft);pointer-events:none;animation:launcher-dismiss 200ms ease-out 600ms forwards}
+.site-launcher img{width:110px;height:auto;animation:launcher-icon 400ms cubic-bezier(.16,1,.3,1) both}
+.site-launcher>span{width:110px;height:2px;background:var(--pink);transform-origin:left;animation:launcher-line 550ms cubic-bezier(.16,1,.3,1) both}
+@keyframes launcher-icon{from{opacity:0;transform:translateY(8px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes launcher-line{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes launcher-dismiss{to{opacity:0;visibility:hidden}}
+.services-ticker{position:relative;overflow:hidden;background:var(--deep);color:var(--soft);padding:23px 0;isolation:isolate}
+.services-ticker-track{display:flex;width:max-content;animation:services-drift 38s linear infinite}
+.services-ticker-group{display:flex;align-items:center;flex-shrink:0}
+.services-ticker-group>span{display:flex;align-items:center;white-space:nowrap;font:700 .85rem/1.5 Quicksand,Arial,sans-serif;letter-spacing:2px;text-transform:uppercase}
+.services-ticker-group>span::after{content:'·';margin:0 48px;color:var(--blush)}
+.ticker-toggle{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:34px;height:34px;border:1px solid var(--pink);border-radius:50%;color:var(--soft);background:var(--deep);cursor:pointer;font-size:.85rem}
+.services-ticker:has(.ticker-toggle:focus-visible) .services-ticker-track,.services-ticker.is-paused .services-ticker-track,.services-ticker.is-offscreen .services-ticker-track{animation-play-state:paused}
+.ticker-toggle:focus-visible{outline-color:var(--soft)}
+@keyframes services-drift{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.site-launcher{display:none}.services-ticker{padding-right:24px;overflow:auto}.services-ticker-track{animation:none}.services-ticker-group{flex-wrap:wrap;gap:16px;width:100vw;padding:0 24px}.services-ticker-group>span{white-space:normal}.services-ticker-group>span::after{margin:0 16px}.services-ticker-group[aria-hidden],.ticker-toggle{display:none}}
 @keyframes project-open{from{opacity:0;transform:translateY(24px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
 @keyframes project-content-enter{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-@keyframes project-backdrop-enter{from{background-color:#4a354000;backdrop-filter:blur(0)}to{background-color:#4a354090;backdrop-filter:blur(3px)}}
+@keyframes project-backdrop-enter{from{opacity:0}to{opacity:1}}
 @media(prefers-reduced-motion:no-preference){
-.project-modal[open]{animation:project-open 480ms cubic-bezier(.16,1,.3,1) both}
-.project-modal[open]::backdrop{animation:project-backdrop-enter 380ms ease-out both}
-.project-modal[open]>:not(.dialog-close){animation:project-content-enter 450ms cubic-bezier(.16,1,.3,1) both;animation-delay:90ms}
-.project-modal[open]>#modal-desc{animation-delay:135ms}
-.project-modal[open]>.modal-gallery{animation-delay:180ms}
-.project-modal[open]>#modal-tech-list{animation-delay:225ms}
-.project-modal[open]>#modal-highlights{animation-delay:270ms}
-.project-modal[open]>#modal-bullets{animation-delay:315ms}
+.project-modal[open]{animation:project-open 300ms cubic-bezier(.16,1,.3,1) both}
+.project-modal[open]::backdrop{animation:project-backdrop-enter 200ms ease-out both}
+.project-modal[open]>:not(.dialog-close){animation:project-content-enter 280ms cubic-bezier(.16,1,.3,1) both;animation-delay:90ms}
+.project-modal[open]>#modal-desc{animation-delay:30ms}
+.project-modal[open]>.modal-gallery{animation-delay:60ms}
+.project-modal[open]>#modal-tech-list{animation-delay:90ms}
+.project-modal[open]>#modal-highlights{animation-delay:120ms}
+.project-modal[open]>#modal-bullets{animation-delay:150ms}
 }
