@@ -119,17 +119,22 @@ main{animation:none}
 }
 @media(prefers-reduced-motion:reduce){.mobile-menu,.mobile-menu *{animation:none!important;transition:none!important}.scroll-reveal{opacity:1;translate:none}html{scroll-behavior:auto}}
 /* Replay the same entrance for every project whenever its dialog opens. */
-.site-launcher{position:fixed;inset:0;z-index:500;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;background:var(--soft);pointer-events:none;animation:launcher-dismiss 200ms ease-out 600ms forwards}
-.launcher-runway{width:150px;height:110px;display:grid;place-items:center;color:var(--deep)}
-.launcher-bunny{width:150px;height:110px;overflow:visible}
-.bunny-bounce{transform-origin:90px 65px;animation:bunny-hop 660ms linear infinite}
-.bunny-back-leg{transform-origin:65px 70px;animation:bunny-hind-stride 440ms linear infinite}
-.bunny-front-leg{transform-origin:110px 68px;animation:bunny-fore-stride 440ms linear infinite}
-.bunny-head{transform-origin:119px 53px;animation:bunny-head-bob 660ms linear infinite}
-@keyframes bunny-hop{0%,100%{transform:translateY(3px) scale(1,.97)}25%{transform:translateY(-4px) rotate(-4deg)}50%{transform:translateY(-8px) scale(1.06,.94)}75%{transform:translateY(-2px) rotate(4deg)}}
-@keyframes bunny-hind-stride{0%,100%{transform:rotate(-55deg) scale(.85)}25%{transform:rotate(12deg)}50%{transform:rotate(25deg) scale(1.06)}75%{transform:rotate(-20deg) scale(.9)}}
-@keyframes bunny-fore-stride{0%,100%{transform:rotate(65deg) scale(.8)}25%{transform:rotate(-15deg)}50%{transform:rotate(5deg) scale(1.08)}75%{transform:rotate(78deg)}}
-@keyframes bunny-head-bob{0%,100%{transform:rotate(3deg)}50%{transform:rotate(-5deg)}}
+.site-launcher{position:fixed;inset:0;z-index:500;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;background:var(--soft);pointer-events:none;animation:launcher-dismiss 180ms ease-out 1120ms forwards}
+.launcher-runway{width:180px;height:140px;display:grid;place-items:center;color:var(--deep)}
+.launcher-bunny{display:block;width:180px;height:135px;overflow:visible}
+.rabbit-hop{transform-origin:80px 65px;animation:rabbit-gallop 560ms ease-in-out infinite}
+.rabbit-body{transform-origin:65px 62px;animation:rabbit-stretch 560ms ease-in-out infinite}
+.rabbit-back-leg{transform-origin:55px 65px;animation:rabbit-hind-stride 560ms ease-in-out infinite}
+.rabbit-front-leg{transform-origin:105px 63px;animation:rabbit-fore-stride 560ms ease-in-out infinite}
+.rabbit-far-leg{animation-delay:-65ms}
+.rabbit-head{transform-origin:100px 55px;animation:rabbit-head-bob 560ms ease-in-out infinite}
+.rabbit-ears{transform-origin:113px 34px;animation:rabbit-ear-flow 560ms ease-in-out -45ms infinite}
+@keyframes rabbit-gallop{0%,100%{transform:translateY(3px) rotate(0)}20%{transform:translateY(-3px) rotate(-3deg)}40%{transform:translateY(-7px) rotate(-1deg)}60%{transform:translateY(-3px) rotate(3deg)}80%{transform:translateY(3px) rotate(2deg)}}
+@keyframes rabbit-stretch{0%,100%{transform:scale(.96,1.03)}35%{transform:scale(1.08,.94)}65%{transform:scale(1.02,1)}85%{transform:scale(.96,1.03)}}
+@keyframes rabbit-hind-stride{0%,100%{transform:rotate(-12deg)}22%{transform:rotate(30deg)}42%{transform:rotate(62deg)}65%{transform:rotate(22deg)}85%{transform:rotate(-18deg)}}
+@keyframes rabbit-fore-stride{0%,100%{transform:rotate(15deg)}22%{transform:rotate(-35deg)}42%{transform:rotate(-65deg)}65%{transform:rotate(-8deg)}85%{transform:rotate(25deg)}}
+@keyframes rabbit-head-bob{0%,100%{transform:rotate(0)}35%{transform:rotate(-3deg)}70%{transform:rotate(3deg)}}
+@keyframes rabbit-ear-flow{0%,100%{transform:rotate(0)}35%{transform:rotate(-9deg)}70%{transform:rotate(6deg)}}
 @keyframes launcher-dismiss{to{opacity:0;visibility:hidden}}
 .services-ticker{position:relative;overflow:hidden;background:var(--deep);color:var(--soft);padding:23px 0;isolation:isolate}
 .services-ticker-track{display:flex;width:max-content;animation:services-drift 38s linear infinite}

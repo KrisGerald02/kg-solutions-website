@@ -35,7 +35,12 @@
   if (launcher) {
     const dismissLauncher = () => launcher.remove();
     if (reducedMotion.matches) dismissLauncher();
-    else setTimeout(dismissLauncher, 900);
+    else {
+      launcher.addEventListener('animationend', event => {
+        if (event.target === launcher && event.animationName === 'launcher-dismiss') dismissLauncher();
+      });
+      setTimeout(dismissLauncher, 1500);
+    }
   }
   const ticker = document.querySelector('.services-ticker');
   if (ticker) {
