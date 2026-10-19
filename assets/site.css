@@ -118,3 +118,17 @@ main{animation:kg-enter 650ms cubic-bezier(.16,1,.3,1) both}
 .project-modal[open],.image-lightbox[open]{animation:kg-enter 380ms cubic-bezier(.16,1,.3,1)}
 }
 @media(prefers-reduced-motion:reduce){.mobile-menu,.mobile-menu *{animation:none!important;transition:none!important}.scroll-reveal{opacity:1;translate:none}html{scroll-behavior:auto}}
+/* Replay the same entrance for every project whenever its dialog opens. */
+@keyframes project-open{from{opacity:0;transform:translateY(24px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes project-content-enter{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes project-backdrop-enter{from{background-color:#4a354000;backdrop-filter:blur(0)}to{background-color:#4a354090;backdrop-filter:blur(3px)}}
+@media(prefers-reduced-motion:no-preference){
+.project-modal[open]{animation:project-open 480ms cubic-bezier(.16,1,.3,1) both}
+.project-modal[open]::backdrop{animation:project-backdrop-enter 380ms ease-out both}
+.project-modal[open]>:not(.dialog-close){animation:project-content-enter 450ms cubic-bezier(.16,1,.3,1) both;animation-delay:90ms}
+.project-modal[open]>#modal-desc{animation-delay:135ms}
+.project-modal[open]>.modal-gallery{animation-delay:180ms}
+.project-modal[open]>#modal-tech-list{animation-delay:225ms}
+.project-modal[open]>#modal-highlights{animation-delay:270ms}
+.project-modal[open]>#modal-bullets{animation-delay:315ms}
+}
