@@ -18,23 +18,89 @@
     try { localStorage.setItem('kg-tech-language', lang); } catch {}
     window.dispatchEvent(new Event('kg-language-change'));
   }
+  const mobilePanel = document.createElement('dialog');
+  mobilePanel.id = 'mobile-menu';
+  mobilePanel.className = 'mobile-menu';
+  mobilePanel.setAttribute('aria-modal', 'true');
+  mobilePanel.setAttribute('aria-label', 'Navegación / Navigation');
+  const mobileLinks = document.getElementById('main-nav').innerHTML;
+  mobilePanel.innerHTML = `<div class="mobile-menu-inner"><div class="mobile-menu-top"><a class="logo" href="index.html" aria-label="KG Tech — Inicio"><img src="logos/kg-tech-logo.png" alt="KG Tech" width="58" height="69"><span>KG TECH</span></a><button class="mobile-menu-close" type="button" data-es-label="Cerrar menú" aria-label="Cerrar menú">✕</button></div><p class="mobile-menu-eyebrow" data-es="EXPLORA KG TECH" data-en="EXPLORE KG TECH">EXPLORA KG TECH</p><nav aria-label="Navegación móvil">${mobileLinks}</nav><div class="mobile-menu-bottom"><p data-es="Ideas que se convierten en soluciones." data-en="Ideas that become solutions.">Ideas que se convierten en soluciones.</p><div class="social-buttons"><a class="social-button" data-social="instagram" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="24" height="24" rx="7"/><circle cx="16" cy="16" r="6"/><circle cx="23" cy="9" r="1"/></svg></span>Instagram</a><a class="social-button" data-social="facebook" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 29V17h5l1-5h-6V9c0-2 1-3 3-3h3V2h-4c-5 0-7 3-7 7v3h-4v5h4v12"/></svg></span>Facebook</a></div></div></div>`;
+  document.body.append(mobilePanel);
+  mobilePanel.querySelectorAll('nav li').forEach((item, index) => item.style.setProperty('--entry-delay', `${90 + index * 45}ms`));
   applyLanguage(lang);
   toggle.addEventListener('click', () => applyLanguage(lang === 'es' ? 'en' : 'es'));
   const menu = document.querySelector('.menu-toggle');
-  const nav = document.getElementById('main-nav');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const mobileViewport = window.matchMedia('(max-width: 1000px)');
+  menu.setAttribute('aria-controls', mobilePanel.id);
+  let closeTimer;
+  let scrollPosition = 0;
+  function finishClose() {
+    clearTimeout(closeTimer);
+    mobilePanel.close();
+    mobilePanel.classList.remove('is-visible', 'is-closing');
+    document.body.classList.remove('mobile-menu-open');
+    document.body.style.removeProperty('top');
+    window.scrollTo({top:scrollPosition, behavior:'instant'});
+    menu.setAttribute('aria-expanded', 'false');
+    menu.focus({preventScroll:true});
+  }
+  function closeMenu() {
+    if (!mobilePanel.open || mobilePanel.classList.contains('is-closing')) return;
+    mobilePanel.classList.remove('is-visible');
+    mobilePanel.classList.add('is-closing');
+    if (reducedMotion.matches) finishClose();
+    else closeTimer = setTimeout(finishClose, 230);
+  }
   menu.addEventListener('click', () => {
-    const open = nav.classList.toggle('is-open');
-    menu.setAttribute('aria-expanded', String(open));
-    menu.textContent = open ? '✕' : '☰';
+    if (!mobileViewport.matches || mobilePanel.open) return;
+    scrollPosition = window.scrollY;
+    document.body.style.top = `-${scrollPosition}px`;
+    document.body.classList.add('mobile-menu-open');
+    mobilePanel.showModal();
+    menu.setAttribute('aria-expanded', 'true');
+    mobilePanel.querySelector('.mobile-menu-close').setAttribute('aria-label', lang === 'es' ? 'Cerrar menú' : 'Close menu');
+    requestAnimationFrame(() => mobilePanel.classList.add('is-visible'));
+    mobilePanel.querySelector('nav a').focus({preventScroll:true});
   });
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && nav.classList.contains('is-open')) {
-      nav.classList.remove('is-open');
-      menu.setAttribute('aria-expanded', 'false');
-      menu.textContent = '☰';
-      menu.focus();
-    }
+  mobilePanel.querySelector('.mobile-menu-close').addEventListener('click', closeMenu);
+  mobilePanel.addEventListener('cancel', event => { event.preventDefault(); closeMenu(); });
+  mobilePanel.querySelectorAll('a').forEach(link => link.addEventListener('click', event => {
+    if (link.target === '_blank') { closeMenu(); return; }
+    event.preventDefault();
+    const destination = link.href;
+    mobilePanel.addEventListener('close', () => window.location.assign(destination), {once:true});
+    closeMenu();
+  }));
+  mobileViewport.addEventListener('change', () => { if (!mobileViewport.matches && mobilePanel.open) finishClose(); });
+  mobilePanel.addEventListener('keydown', event => {
+    if (event.key !== 'Tab') return;
+    const controls = [...mobilePanel.querySelectorAll('a[href], button')];
+    const first = controls[0];
+    const last = controls[controls.length - 1];
+    if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+    else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
   });
+  if (!reducedMotion.matches && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.08});
+    document.querySelectorAll('.summary-card, .info-card, .service-row, .proj-card, .tool-group, .about-preview, .cta').forEach(element => {
+      element.classList.add('scroll-reveal');
+      observer.observe(element);
+    });
+    reducedMotion.addEventListener('change', () => {
+      if (reducedMotion.matches) {
+        document.querySelectorAll('.scroll-reveal').forEach(element => element.classList.add('is-revealed'));
+        observer.disconnect();
+      }
+    });
+  }
   document.querySelectorAll('[data-social]').forEach(link => {
     const url = window.KG_SOCIAL_LINKS?.[link.dataset.social];
     if (url && /^https:\/\//.test(url)) link.href = url;
