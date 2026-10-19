@@ -120,14 +120,16 @@ main{animation:none}
 @media(prefers-reduced-motion:reduce){.mobile-menu,.mobile-menu *{animation:none!important;transition:none!important}.scroll-reveal{opacity:1;translate:none}html{scroll-behavior:auto}}
 /* Replay the same entrance for every project whenever its dialog opens. */
 .site-launcher{position:fixed;inset:0;z-index:500;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;background:var(--soft);pointer-events:none;animation:launcher-dismiss 200ms ease-out 600ms forwards}
-.launcher-runway{width:min(300px,80vw);height:120px;overflow:hidden;color:var(--deep)}
-.launcher-bunny{width:110px;height:90px;overflow:visible;animation:bunny-travel 800ms linear both}
-.bunny-bounce{transform-origin:80px 80px;animation:bunny-hop 200ms ease-in-out infinite}
-.bunny-back-leg{transform-origin:65px 70px;animation:bunny-stride 200ms ease-in-out infinite alternate}
-.bunny-front-leg{transform-origin:103px 65px;animation:bunny-stride 200ms ease-in-out -200ms infinite alternate-reverse}
-@keyframes bunny-travel{from{transform:translateX(-105px)}to{transform:translateX(300px)}}
-@keyframes bunny-hop{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-9px) rotate(2deg)}}
-@keyframes bunny-stride{from{transform:rotate(-22deg)}to{transform:rotate(22deg)}}
+.launcher-runway{width:150px;height:110px;display:grid;place-items:center;color:var(--deep)}
+.launcher-bunny{width:150px;height:110px;overflow:visible}
+.bunny-bounce{transform-origin:90px 65px;animation:bunny-hop 440ms linear infinite}
+.bunny-back-leg{transform-origin:65px 70px;animation:bunny-hind-stride 440ms linear infinite}
+.bunny-front-leg{transform-origin:110px 68px;animation:bunny-fore-stride 440ms linear infinite}
+.bunny-head{transform-origin:119px 53px;animation:bunny-head-bob 440ms linear infinite}
+@keyframes bunny-hop{0%,100%{transform:translateY(3px) scale(1,.97)}25%{transform:translateY(-4px) rotate(-4deg)}50%{transform:translateY(-8px) scale(1.06,.94)}75%{transform:translateY(-2px) rotate(4deg)}}
+@keyframes bunny-hind-stride{0%,100%{transform:rotate(-55deg) scale(.85)}25%{transform:rotate(12deg)}50%{transform:rotate(25deg) scale(1.06)}75%{transform:rotate(-20deg) scale(.9)}}
+@keyframes bunny-fore-stride{0%,100%{transform:rotate(65deg) scale(.8)}25%{transform:rotate(-15deg)}50%{transform:rotate(5deg) scale(1.08)}75%{transform:rotate(78deg)}}
+@keyframes bunny-head-bob{0%,100%{transform:rotate(3deg)}50%{transform:rotate(-5deg)}}
 @keyframes launcher-dismiss{to{opacity:0;visibility:hidden}}
 .services-ticker{position:relative;overflow:hidden;background:var(--deep);color:var(--soft);padding:23px 0;isolation:isolate}
 .services-ticker-track{display:flex;width:max-content;animation:services-drift 38s linear infinite}
