@@ -4,7 +4,7 @@ Sitio estático con cinco páginas: Inicio, Nosotros, Servicios, Proyectos y Con
 
 Abre index.html o ejecuta `python -m http.server 8000 --bind 127.0.0.1`.
 
-- Contacto por correo: kgtechdigital@gmail.com y WhatsApp: +505 7693 5552. El formulario prepara el mensaje; confirma su envío en WhatsApp.
+- Contacto por WhatsApp: +505 7693 5552. El formulario prepara el mensaje; confirma su envío en WhatsApp.
 - Servicios organizados en seis secciones horizontales con iconos y listas de entregables.
 - Proyectos del portafolio: Lo Nuestro en Sitios web, cinco proyectos de Business Intelligence y una automatización. Los dashboards y la automatización incluyen carrusel, miniaturas y ampliación de imágenes.
 - Herramientas agrupadas por área en Nosotros, con acceso desde Servicios.
