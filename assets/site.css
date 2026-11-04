@@ -170,17 +170,12 @@ main{animation:none}
 .mobile-menu-close{display:grid;place-items:center;font-size:1.05rem}
 .mobile-menu nav li{position:relative}
 .mobile-menu nav a{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:56px;padding:12px 4px;font-size:clamp(26px,7.5vw,32px)}
-.mobile-menu nav a::after{content:'→';font:500 1.3rem Quicksand,Arial,sans-serif;color:var(--pink);transform:translateX(-6px);opacity:.55;transition:transform 250ms,opacity 250ms}
-.mobile-menu nav a:hover::after,.mobile-menu nav a:focus-visible::after{transform:translateX(0);opacity:1}
 .mobile-menu nav a:active{color:var(--deep)}
 .mobile-menu nav a[aria-current=page]{padding-left:18px}
 .mobile-menu nav a[aria-current=page]::before{content:'';position:absolute;left:0;top:50%;width:6px;height:28px;margin-top:-14px;border-radius:6px;background:var(--pink)}
-.mobile-menu nav a[aria-current=page]::after{content:'•';opacity:1;transform:none;color:var(--deep)}
 .mobile-menu-bottom{display:flex;flex-direction:column;gap:18px;padding-top:28px}
 .mobile-menu-cta{display:flex;justify-content:center;text-align:center;width:100%}
-.mobile-lang{display:flex;align-items:center;gap:6px;font-size:.85rem;font-weight:700;color:var(--muted)}
-.mobile-lang span{margin-right:auto}
-.mobile-lang button{min-width:52px;min-height:40px;border:1px solid var(--pink);border-radius:999px;background:transparent;color:var(--deep);font-weight:800;cursor:pointer}
-.mobile-lang button[aria-pressed=true]{background:var(--deep);border-color:var(--deep);color:#fff}
 .mobile-menu-bottom p{margin:0}
 .mobile-menu .social-buttons{margin-top:0}
+/* Mobile: hide decorative arrow glyphs (iOS renders some as grey emoji). */
+@media(max-width:760px){.arrow,.card-arrow,.channel-arrow{display:none!important}}
