@@ -18,7 +18,6 @@
     const menu = document.querySelector('.menu-toggle');
     menu.setAttribute('aria-label', lang === 'es' ? 'Abrir menú' : 'Open menu');
     document.querySelector('.mobile-menu-close')?.setAttribute('aria-label', lang === 'es' ? 'Cerrar menú' : 'Close menu');
-    document.querySelectorAll('.mobile-lang button').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.lang === lang)));
     try { localStorage.setItem('kg-tech-language', lang); } catch {}
     window.dispatchEvent(new Event('kg-language-change'));
   }
@@ -28,10 +27,9 @@
   mobilePanel.setAttribute('aria-modal', 'true');
   mobilePanel.setAttribute('aria-label', 'Navegación / Navigation');
   const mobileLinks = document.getElementById('main-nav').innerHTML;
-  mobilePanel.innerHTML = `<div class="mobile-menu-inner"><div class="mobile-menu-top"><a class="logo" href="index.html" aria-label="KG Tech — Inicio"><img src="logos/kg-tech-logo.png" alt="KG Tech" width="58" height="69"><span>KG TECH</span></a><button class="mobile-menu-close" type="button" data-es-label="Cerrar menú" aria-label="Cerrar menú">✕</button></div><p class="mobile-menu-eyebrow" data-es="EXPLORA KG TECH" data-en="EXPLORE KG TECH">EXPLORA KG TECH</p><nav aria-label="Navegación móvil">${mobileLinks}</nav><div class="mobile-menu-bottom"><a class="btn-primary mobile-menu-cta" href="contacto.html" data-es="Hablemos de tu proyecto →" data-en="Let’s discuss your project →">Hablemos de tu proyecto →</a><div class="mobile-lang" role="group" aria-label="Idioma / Language"><span data-es="Idioma" data-en="Language">Idioma</span><button type="button" data-lang="es" aria-pressed="false">ES</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div><p data-es="Ideas que se convierten en soluciones." data-en="Ideas that become solutions.">Ideas que se convierten en soluciones.</p><div class="social-buttons"><a class="social-button" data-social="instagram" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="24" height="24" rx="7"/><circle cx="16" cy="16" r="6"/><circle cx="23" cy="9" r="1"/></svg></span>Instagram</a><a class="social-button" data-social="facebook" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer"><span class="social-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 29V17h5l1-5h-6V9c0-2 1-3 3-3h3V2h-4c-5 0-7 3-7 7v3h-4v5h4v12"/></svg></span>Facebook</a></div></div></div>`;
+  mobilePanel.innerHTML = `<div class="mobile-menu-inner"><div class="mobile-menu-top"><a class="logo" href="index.html" aria-label="KG Tech — Inicio"><img src="logos/kg-tech-logo.webp" alt="KG Tech" width="58" height="69"><span>KG TECH</span></a><button class="mobile-menu-close" type="button" data-es-label="Cerrar menú" aria-label="Cerrar menú">✕</button></div><p class="mobile-menu-eyebrow" data-es="EXPLORA KG TECH" data-en="EXPLORE KG TECH">EXPLORA KG TECH</p><nav aria-label="Navegación móvil">${mobileLinks}</nav><div class="mobile-menu-bottom"><a class="btn-primary mobile-menu-cta" href="contacto.html" data-es="Hablemos de tu proyecto <span class=arrow aria-hidden=true>→</span>" data-en="Let’s discuss your project <span class=arrow aria-hidden=true>→</span>">Hablemos de tu proyecto <span class=arrow aria-hidden=true>→</span></a><p data-es="Ideas que se convierten en soluciones." data-en="Ideas that become solutions.">Ideas que se convierten en soluciones.</p></div></div>`;
   document.body.append(mobilePanel);
   mobilePanel.querySelectorAll('nav li').forEach((item, index) => item.style.setProperty('--entry-delay', `${90 + index * 45}ms`));
-  mobilePanel.querySelectorAll('.mobile-lang button').forEach(button => button.addEventListener('click', () => applyLanguage(button.dataset.lang)));
   applyLanguage(lang);
   toggle.addEventListener('click', () => applyLanguage(lang === 'es' ? 'en' : 'es'));
   const menu = document.querySelector('.menu-toggle');
@@ -54,7 +52,7 @@
       const paused = ticker.classList.contains('is-paused');
       pauseButton.setAttribute('aria-pressed', String(paused));
       pauseButton.setAttribute('aria-label', lang === 'es' ? (paused ? 'Reanudar carrusel' : 'Pausar carrusel') : (paused ? 'Resume carousel' : 'Pause carousel'));
-      pauseButton.textContent = paused ? '▶' : 'Ⅱ';
+      pauseButton.textContent = paused ? '▶\uFE0E' : 'Ⅱ';
     }
     pauseButton.addEventListener('click', () => { ticker.classList.toggle('is-paused'); updateTickerButton(); });
     window.addEventListener('kg-language-change', updateTickerButton);
